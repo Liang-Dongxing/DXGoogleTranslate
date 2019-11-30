@@ -1,0 +1,39 @@
+{
+  "name": "dx_google_translate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main/main.js",
+  "scripts": {
+    "dev": "electron-webpack dev",
+    "compile": "electron-webpack",
+    "dist": "yarn compile && electron-builder",
+    "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "source-map-support": "^0.5.12"
+  },
+  "devDependencies": {
+    "electron": "^6.0.0",
+    "electron-builder": "^21.0.11",
+    "electron-webpack": "^2.7.4",
+    "webpack": "~4.35.3"
+  },
+  "build": {
+    "appId": "dx.translate",
+    "asar": false,
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "src/main/icon.ico",
+      "uninstallerIcon": "src/main/icon.ico",
+      "installerHeaderIcon": "src/main/icon.ico",
+      "createDesktopShortcut": true
+    },
+    "win": {
+      "icon": "src/main/icon.ico"
+    }
+  }
+}
