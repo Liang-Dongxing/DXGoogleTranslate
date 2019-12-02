@@ -59,9 +59,9 @@ function createGlobalShortcut() {
     globalShortcut.register('F2', () => {
         console.log(win.isMinimizable())
         if (win.isFocused()){
-            win.show();
-        }else {
             win.hide();
+        }else {
+            win.show();
         }
     })
 }
