@@ -1,4 +1,5 @@
 const {app, BrowserWindow, Tray, Menu, globalShortcut} = require('electron');
+const path = require('path');
 // 保持对window对象的全局引用，如果不这么做的话，当JavaScript对象被
 // 垃圾回收的时候，window对象将会自动的关闭
 let win;
@@ -27,7 +28,7 @@ function createWindows() {
     win = new BrowserWindow({
         width: 1298,
         height: 585,
-        opacity: 0.8,
+        opacity: 0.9,
         autoHideMenuBar: true,
         titleBarStyle: "hidden",
         icon: "uninstallerIcon.ico",
@@ -45,7 +46,7 @@ function loadDocument() {
 }
 
 function createTray() {
-    tray = new Tray("uninstallerIcon.ico");
+    tray = new Tray(path.join(__static,'icon.png'));
     const contextMenu = Menu.buildFromTemplate([
         {label: '退出', type: 'normal', role: 'quit'},
     ]);
