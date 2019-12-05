@@ -26,8 +26,8 @@ app.on('window-all-closed', () => {
 function createWindows() {
 // 创建浏览器窗口。
     win = new BrowserWindow({
-        width: 1298,
-        height: 585,
+        width: 500,
+        height: 850,
         opacity: 0.9,
         autoHideMenuBar: true,
         titleBarStyle: "hidden",
