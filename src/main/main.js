@@ -5,14 +5,28 @@ const path = require('path');
 let win;
 let tray;
 // Electron 会在初始化后并准备
-// 创建浏览器窗口时，调用这个函数。
-// 部分 API 在 ready 事件触发后才能使用。
-app.on('ready', () => {
-    createWindows();
-    loadDocument();
-    createGlobalShortcut();
-    createTray();
-});
+const gotTheLock = app.requestSingleInstanceLock()
+if (gotTheLock) {
+    app.on('second-instance', (event, commandLine, workingDirectory) => {
+        // 当运行第二个实例时,将会聚焦到myWindow这个窗口
+        if (win) {
+            if (win.isMinimized()) win.restore()
+            win.focus();
+            win.show();
+        }
+    });
+
+    // 创建浏览器窗口时，调用这个函数。
+    // 部分 API 在 ready 事件触发后才能使用。
+    app.on('ready', () => {
+        createWindows();
+        loadDocument();
+        createGlobalShortcut();
+        createTray();
+    });
+} else {
+    app.quit();
+}
 
 // 当全部窗口关闭时退出。
 app.on('window-all-closed', () => {
@@ -46,7 +60,7 @@ function loadDocument() {
 }
 
 function createTray() {
-    tray = new Tray(path.join(__static,'icon.png'));
+    tray = new Tray(path.join(__static, 'icon.png'));
     const contextMenu = Menu.buildFromTemplate([
         {label: '退出', type: 'normal', role: 'quit'},
     ]);
